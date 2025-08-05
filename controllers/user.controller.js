@@ -225,7 +225,7 @@ export const updateProfile = async (req, res) => {
         resource_type: 'raw'
       });
 
-      user.profile.resume = cloudresponse.url;
+      user.profile.resume = cloudresponse.secure_url;
       user.profile.resumeOriginalName = file.originalname;
     }
 
