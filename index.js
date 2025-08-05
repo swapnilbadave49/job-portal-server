@@ -30,6 +30,7 @@ const corsOptions = {
     'https://job-portal-ui-jet.vercel.app',
   ],
   credentials: true,
+  optionsSuccessStatus: 200,
 };
 
 
