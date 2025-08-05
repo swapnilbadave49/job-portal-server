@@ -26,7 +26,7 @@ app.use(cookieParser());
 
 
 const corsOptions = {
-  origin: 'https://job-portal-gxb80fin5-swapnilbadave49s-projects.vercel.app',
+  origin: 'https://job-portal-ui-jet.vercel.app',
   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
 
 };
