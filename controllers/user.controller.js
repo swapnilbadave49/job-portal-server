@@ -225,7 +225,7 @@ console.log("req.body:", req.body);
         resource_type: 'raw'
       });
     
-      user.profile.resume = cloudresponse.secure_url;
+      user.profile.resume = cloudresponse.public_id;
       user.profile.resumeOriginalName = file.originalname;
     }
     
