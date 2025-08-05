@@ -28,6 +28,7 @@ const corsOptions = {
   origin: [
     'http://localhost:5173',
     'https://job-portal-ui-jet.vercel.app',
+    'https://job-portal-oa12qppxh-swapnilbadave49s-projects.vercel.app',
   ],
   credentials: true,
   optionsSuccessStatus: 200,
