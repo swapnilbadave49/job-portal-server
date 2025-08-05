@@ -24,26 +24,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const allowedOrigins = [
-  "http://localhost:5173", // for local dev
-  "https://job-portal-gxb80fin5-swapnilbadave49s-projects.vercel.app/api/v1/user", // ✅ deployed frontend
-  "https://job-portal-gxb80fin5-swapnilbadave49s-projects.vercel.app/api/v1/company", // ✅ deployed frontend
-  "https://job-portal-gxb80fin5-swapnilbadave49s-projects.vercel.app/api/v1/job", // ✅ deployed frontend
-  "https://job-portal-gxb80fin5-swapnilbadave49s-projects.vercel.app/api/v1/application", // ✅ deployed frontend
-];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true, // ✅ Important if you're using cookies
-  })
-);
+const corsOptions = {
+  origin: 'https://job-portal-gxb80fin5-swapnilbadave49s-projects.vercel.app',
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+
+};
+
+app.use(cors(corsOptions));
 
 
 const PORT = process.env.PORT || 3000;
