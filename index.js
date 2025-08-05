@@ -26,7 +26,10 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "http://localhost:5173", // for local dev
-  "https://job-portal-gxb80fin5-swapnilbadave49s-projects.vercel.app/*", // ✅ deployed frontend
+  "https://job-portal-gxb80fin5-swapnilbadave49s-projects.vercel.app/api/v1/user", // ✅ deployed frontend
+  "https://job-portal-gxb80fin5-swapnilbadave49s-projects.vercel.app/api/v1/company", // ✅ deployed frontend
+  "https://job-portal-gxb80fin5-swapnilbadave49s-projects.vercel.app/api/v1/job", // ✅ deployed frontend
+  "https://job-portal-gxb80fin5-swapnilbadave49s-projects.vercel.app/api/v1/application", // ✅ deployed frontend
 ];
 
 app.use(
