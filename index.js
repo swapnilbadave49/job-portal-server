@@ -10,7 +10,7 @@ import companyRoute from './Routes/company.route.js';
 
 import jobRoute from './Routes/job.route.js'; // Import job routes  
 
-import applicationRoute from './Routes/application.route.js'; 
+import applicationRoute from './Routes/application.route.js';
 
 import path from 'path';
 
@@ -26,7 +26,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "http://localhost:5173", // for local dev
-  "https://job-portal-gxb80fin5-swapnilbadave49s-projects.vercel.app", // ✅ deployed frontend
+  "https://job-portal-gxb80fin5-swapnilbadave49s-projects.vercel.app/*", // ✅ deployed frontend
 ];
 
 app.use(
@@ -43,7 +43,7 @@ app.use(
 );
 
 
-const PORT=process.env.PORT || 3000; 
+const PORT = process.env.PORT || 3000;
 
 
 //api's
@@ -57,6 +57,6 @@ app.use("/api/v1/application", applicationRoute); // Use application routes
 
 
 app.listen(PORT, () => {
-   connectDB();
+  connectDB();
   console.log(`Server is running on port http://localhost:${PORT}`);
 });
