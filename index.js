@@ -24,18 +24,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const corsOptions = {
-  origin: [
-    'http://localhost:5173',
-    'https://job-portal-ui-jet.vercel.app',
-    'https://job-portal-oa12qppxh-swapnilbadave49s-projects.vercel.app',
-  ],
-  credentials: true,
-  optionsSuccessStatus: 200,
-};
+const allowedOrigins = [
+  "http://localhost:5173", // for local dev
+  "https://job-portal-gxb80fin5-swapnilbadave49s-projects.vercel.app", // ✅ deployed frontend
+];
 
-
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // ✅ Important if you're using cookies
+  })
+);
 
 
 const PORT=process.env.PORT || 3000; 
