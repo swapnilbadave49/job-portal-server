@@ -120,7 +120,7 @@ export const login = async (req, res) => {
       role: user.role,
       profile: user.profile
     }
-    return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: 'strict' }).json(
+    return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: 'None',secure:true }).json(
       {
         message: "Login successful",
         success: true, user, token
@@ -141,7 +141,7 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
 
   try {
-    return res.status(200).cookie("token", "", { maxAge: 0, httpOnly: true, sameSite: 'strict' }).json({ message: "Logout successful", success: true });
+    return res.status(200).cookie("token", "", { maxAge: 0, httpOnly: true, sameSite: 'None',secure:true }).json({ message: "Logout successful", success: true });
   } catch (error) {
     console.log("Error in user logout:", error);
     return res.status(500).json({ message: "Internal Server Error", success: false });
