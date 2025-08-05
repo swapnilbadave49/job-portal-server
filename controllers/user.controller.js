@@ -13,9 +13,9 @@ export const register = async (req, res) => {
     // console.log("BODY:", req.body);
     // console.log("FILE:", req.file);
 
-    const {fullname, email, phoneNumber, password, role } = req.body;
+    const {fullname, email, phonenumber, password, role } = req.body;
    const file= req.file; //file is the resume file uploaded by the user
-    if (!fullname || !email || !phoneNumber || !password || !role) {
+    if (!fullname || !email || !phonenumber || !password || !role) {
       return res.status(400).json({
         message: "All fields are required",
         success: false
@@ -74,7 +74,7 @@ if (file) {
     await User.create({
       fullname,
       email,
-      phonenumber:phoneNumber,
+      phonenumber:phonenumber,
       password: hashedPassword,
       role,
       
