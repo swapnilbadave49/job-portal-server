@@ -13,8 +13,8 @@ export const register = async (req, res) => {
     // console.log("BODY:", req.body);
     // console.log("FILE:", req.file);
 
-    const {fullname, email, phonenumber, password, role } = req.body;
-   const file= req.file; //file is the resume file uploaded by the user
+    const { fullname, email, phonenumber, password, role } = req.body;
+    const file = req.file; //file is the resume file uploaded by the user
     if (!fullname || !email || !phonenumber || !password || !role) {
       return res.status(400).json({
         message: "All fields are required",
@@ -27,41 +27,41 @@ export const register = async (req, res) => {
     //   console.log("📄 file.mimetype:", file.mimetype);
     //   console.log("📄 file.size:", file.size);
     //   console.log("📄 file.buffer exists:", !!file.buffer);
-    
+
     //   const fileuri = getDataUri(file);
-    
+
     //   if (!fileuri) {
     //     console.log("❌ Failed to convert file to Data URI");
     //     return res.status(500).json({ message: "File conversion failed", success: false });
     //   }
-    
+
     //   const cloudresponse = await cloudinary.uploader.upload(fileuri.content, { resource_type: 'raw' });
     //   console.log("☁️ Uploaded to Cloudinary:", cloudresponse);
-    
+
     //   user.profile.resume = cloudresponse.secure_url;
     //   user.profile.resumeOriginalName = file.originalname;
     // }
 
     let resumeData = {};
 
-if (file) {
-  const fileuri = getDataUri(file);
+    if (file) {
+      const fileuri = getDataUri(file);
 
-  if (!fileuri) {
-    return res.status(500).json({ message: "File conversion failed", success: false });
-  }
+      if (!fileuri) {
+        return res.status(500).json({ message: "File conversion failed", success: false });
+      }
 
-  const cloudresponse = await cloudinary.uploader.upload(fileuri.content, {
-    resource_type: "raw" // ✅ Correct for PDFs
-  });
+      const cloudresponse = await cloudinary.uploader.upload(fileuri.content, {
+        resource_type: "raw" // ✅ Correct for PDFs
+      });
 
-  resumeData = {
-    resume: cloudresponse.secure_url,
-    resumeOriginalName: file.originalname
-  };
-}
+      resumeData = {
+        resume: cloudresponse.secure_url,
+        resumeOriginalName: file.originalname
+      };
+    }
 
-    
+
     // Check if user already exists
 
     const user = await User.findOne({ email });
@@ -74,10 +74,10 @@ if (file) {
     await User.create({
       fullname,
       email,
-      phonenumber:phonenumber,
+      phonenumber: phonenumber,
       password: hashedPassword,
       role,
-      
+
     });
 
     return res.status(201).json({ message: "User registered successfully", success: true });
@@ -120,7 +120,7 @@ export const login = async (req, res) => {
       role: user.role,
       profile: user.profile
     }
-    return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'None',secure:true }).json(
+    return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'None', secure: true }).json(
       {
         message: "Login successful",
         success: true, user, token
@@ -141,7 +141,7 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
 
   try {
-    return res.status(200).cookie("token", "", { maxAge: 0, httpOnly: true, sameSite: 'None',secure:true }).json({ message: "Logout successful", success: true });
+    return res.status(200).cookie("token", "", { maxAge: 0, httpOnly: true, sameSite: 'None', secure: true }).json({ message: "Logout successful", success: true });
   } catch (error) {
     console.log("Error in user logout:", error);
     return res.status(500).json({ message: "Internal Server Error", success: false });
@@ -159,8 +159,8 @@ export const updateProfile = async (req, res) => {
 
     //cloduinary upload will come later
     console.log("req.file:", req.file);
-console.log("req.body:", req.body);
-   
+    console.log("req.body:", req.body);
+
 
 
     let skilledArray;
@@ -201,11 +201,11 @@ console.log("req.body:", req.body);
         user.profile.skills = skilledArray;
       }
     }
-    
 
 
 
- 
+
+
 
     //resume comes later here
     if (file) {
@@ -213,23 +213,23 @@ console.log("req.body:", req.body);
       console.log("📄 file.mimetype:", file.mimetype);
       console.log("📄 file.size:", file.size);
       console.log("📄 file.buffer exists:", !!file.buffer);
-    
+
       const fileuri = getDataUri(file);
-    
+
       if (!fileuri) {
         console.log("❌ Failed to convert file to Data URI");
         return res.status(500).json({ message: "File conversion failed", success: false });
       }
-    
+
       const cloudresponse = await cloudinary.uploader.upload(fileuri.content, {
         resource_type: 'raw'
       });
-    
-      user.profile.resume = cloudresponse.public_id;
+
+      user.profile.resume = cloudresponse.url;
       user.profile.resumeOriginalName = file.originalname;
     }
-    
-    
+
+
 
     await user.save();
 
